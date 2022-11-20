@@ -1,0 +1,42 @@
+extends baseTemplate
+
+block content 
+  h1 This is Create new loan Overview
+  main.main
+    .card-container
+      .card
+        .card__header
+          h3.heading-tertirary
+            span Create a new loan
+        .card__details
+          h4.card__sub-heading New Loan information
+          p.card__text
+          |   Please enter the following Details
+          .card__data
+            svg.card__icon
+              use(xlink:href='img/icons.svg#icon-map-pin')
+            form(action='/api/v1/loans/' method='post')
+              label(for='name') name:
+              input#name(type='text' name='name')
+              br
+              br
+              label(for='loanType') loanType:
+              input#email(type='loanType' name='loanType')
+              label(for='startDate') startDate:
+              input#email(type='startDate' name='startDate')
+              br
+              br
+              label(for='loanNumber') loanNumber:
+              input#password(type='loanNumber' name='loanNumber')
+              label(for='loanTermYears') loanTermYears:
+              input#password(type='loanTermYears' name='loanTermYears')
+              br
+              br
+              label(for='Amount') Amount:
+              input#cpassword(type='Amount' name='Amount')
+              label(for='interestRate') interestRate:
+              input#cpassword(type='interestRate' name='interestRate')
+              br
+              br
+              input.card__sub-heading(type='submit' value='Submit')
+ 

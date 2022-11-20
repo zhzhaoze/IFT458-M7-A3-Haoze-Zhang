@@ -1,0 +1,17 @@
+extends baseTemplate
+
+block content 
+  h1 This is user lists Overview
+  div
+    table.table-header
+      thead
+        tr
+          th(scope='col') name
+          th(scope='col') email
+      tbody
+        each user in users
+          tr.table-secondary
+            td=user.name
+            td=user.email
+            
+ 
