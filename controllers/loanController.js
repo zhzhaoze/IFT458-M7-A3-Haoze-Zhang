@@ -2,6 +2,16 @@ const Loan = require('../models/loanModel');
 const APIFeatures = require('../utilities/loanDbContext');
 const alert =require('alert')
 
+function Calculate(amount,interest,years) {
+  //const months = years*12
+  const months = years*12;
+  //calculate i = interest/12
+  const interests = interest/12;
+  //Calculate the PV
+  const PV = Math.round((amount/(interests)) * (1-(1/((1+((interests)))**(months))))*100)/100;
+  return PV
+}
+
 exports.getAllLoans =   async (req, res) => {
   console.log(req.query.name)
   try {
@@ -12,7 +22,11 @@ exports.getAllLoans =   async (req, res) => {
       .limitFields()
       .paginate();
     const loans = await features.query;
-    
+
+    loans.forEach(function(item) {
+      item.calculatedLoanAmount = (Calculate(item.Amount,item.interestRate,item.loanTermYears)).toString();
+    })
+    console.log(loans)
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',
@@ -29,7 +43,6 @@ exports.getAllLoans =   async (req, res) => {
 };
 
 exports.getMyLoans =   async (req, res) => {
-  console.log(req.query.name)
   try {
     // EXECUTE QUERY
     const features = new APIFeatures(Loan.find(), req.query)
@@ -38,7 +51,10 @@ exports.getMyLoans =   async (req, res) => {
       .limitFields()
       .paginate();
     const loans = await features.query;
-    
+
+    loans.forEach(function(item) {
+      item.calculatedLoanAmount = (Calculate(item.Amount,item.interestRate,item.loanTermYears)).toString();
+    })
     // SEND RESPONSE
     res.status(200).json({
       status: 'success',

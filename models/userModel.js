@@ -42,9 +42,9 @@ const userSchema = new mongoose.Schema({
     default: Date.now
   },
   active: {
-    type: Boolean,
-    default: true,
-    select: false
+    type: String,
+    default: 'true',
+    select: 'false'
   }
 });
 

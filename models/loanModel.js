@@ -40,6 +40,9 @@ const loanSchema = new mongoose.Schema(
         select: true
 
     },
+    calculatedLoanAmount: {
+        type: Number
+    },
 
 });
 const Loan = mongoose.model('loans', loanSchema);

@@ -17,6 +17,7 @@ header.header
   .header__logo
     img(src='img/logo.png' alt='Course logo')
   nav.nav.nav--user
+    a.nav__el.nav__el(href='/login') Login
     //- a.nav__el(href='#') My Courses
     //- button.nav__el Log out
     a.nav__el(href='#')
@@ -38,12 +39,21 @@ main.main
           svg.card__icon
             use(xlink:href='img/icons.svg#icon-map-pin')
           form(action='/api/v1/users/signup' method='post')
-            label(for='name') name:
+            label(for='name') Name:
             input#name(type='text' name='name')
             br
             br
             label(for='email') Email:
             input#email(type='email' name='email')
+            br
+            br
+            //- .col-xs-12
+            label(for='role') Role:
+            select#role.select.form-control.input-lg(name='role')
+              option(value='user') User
+              option(value='staff') Staff
+              option(value='student') Student
+              option(value='admin') Admin
             br
             br
             label(for='password') Password:

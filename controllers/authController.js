@@ -4,7 +4,7 @@ const User = require('./../models/userModel');
 const AppError = require('./../utilities/appError');
 const util = require('util');
 const express = require('express');
-const alert =require('alert')
+const alert = require('alert')
 
 require('util.promisify').shim();
 
@@ -41,10 +41,11 @@ const createSendToken = (user, statusCode, res) => {
 };
 
 exports.signup = async (req, res, next) => {
-  console.log(req.body)
+  // console.log(req.body)
   const newUser = await User.create({
     name: req.body.name,
     email: req.body.email,
+    role: req.body.role,
     password: req.body.password,
     passwordConfirm: req.body.passwordConfirm
   });
@@ -78,10 +79,13 @@ exports.login = async (req, res, next) => {
 
   // 3) If everything ok, send token to client
   createSendToken(user, 200, res);
+  //use session to contain the user information
   req.session.email = user.email
   req.session.name = user.name
-  req.session.userId = user._id;
+  req.session.userId = user._id
+  //alert login successfully
   alert("successfully!!!")
+  //redirect the basetemplate
   res.redirect('/')
 };
 
